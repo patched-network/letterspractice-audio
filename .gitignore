@@ -1,0 +1,8 @@
+# Only the app's audio ships: words/, phonemes/, arpa/ (mp3).
+# Raw session material, edit projects and notes stay local.
+/05-15-session/
+*.wav
+*.aup3
+*.txt
+*.md
+!/README.md
