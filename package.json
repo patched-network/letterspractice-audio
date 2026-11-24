@@ -1,7 +1,6 @@
 {
   "name": "letterspractice-audio-tools",
   "private": true,
-  "license": "MIT",
   "description": "Recording tools for the LettersPractice audio (see RECORDING.md). The audio itself needs none of this.",
   "scripts": {
     "validate": "tsx tools/validate-recording.ts",
