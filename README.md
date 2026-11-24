@@ -20,6 +20,12 @@ ordinary commit; tag when the app should pick it up. A second voice would go
 under its own top-level directory (e.g. `voices/<name>/words/…`), with app
 support to choose between them.
 
+## Recording
+
+How these files are made, and the tools for it (level check, splitting a
+session into words, loudness normalization, a QA player), are in
+[`RECORDING.md`](RECORDING.md). Using the audio needs none of it.
+
 ## License
 
 Recordings © 2025–2026 Colin Kennedy, licensed under

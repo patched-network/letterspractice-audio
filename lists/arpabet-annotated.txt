@@ -1,0 +1,39 @@
+AA    father, bot
+AE    cat, bat
+AH    but, about (schwa when unstressed)
+AO    caught, law
+EH    bet, red
+ER    bird, her (r-colored)
+IH    bit, sit
+IY    beat, see
+UH    book, put
+UW    boot, blue
+AW    house, now
+AY    bite, my
+EY    bait, day
+OW    boat, go
+OY    boy, toy
+P     pat
+B     bat
+T     tap
+D     dab
+K     cat, kit
+G     got
+F     fat
+V     vat
+TH    thin (voiceless)
+DH    this (voiced)
+S     sit
+Z     zip
+SH    ship
+ZH    measure
+HH    hat
+CH    chip
+JH    jump, bridge
+M     mat
+N     nap
+NG    sing
+L     left
+R     red
+W     wet
+Y     yes

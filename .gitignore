@@ -1,8 +1,12 @@
-# Only the app's audio ships: words/, phonemes/, arpa/ (mp3).
-# Raw session material, edit projects and notes stay local.
+# What ships: words/, phonemes/, arpa/ (mp3), plus the recording docs, lists
+# and tools. Raw sessions, edit projects and scratch notes stay local.
+/sessions/
 /05-15-session/
+/node_modules/
 *.wav
 *.aup3
 *.txt
 *.md
 !/README.md
+!/RECORDING.md
+!/lists/*.txt

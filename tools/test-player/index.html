@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Audio Test Player</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 600px; margin: 2rem auto; padding: 1rem; }
+    h1 { font-size: 1.5rem; }
+    .drop-zone {
+      border: 2px dashed #999;
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      margin: 1rem 0;
+      transition: border-color 0.2s;
+    }
+    .drop-zone.dragover { border-color: #333; background: #f0f0f0; }
+    .file-list { margin-top: 1rem; }
+    .file-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      border-bottom: 1px solid #eee;
+    }
+    .file-item button { cursor: pointer; }
+    .file-name { flex: 1; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <h1>Audio Test Player</h1>
+  <p>Drop mp3/wav files here or click to select. Click play to test onset/offset.</p>
+
+  <div class="drop-zone" id="dropZone">
+    <input type="file" id="filePicker" accept="audio/*" multiple hidden>
+    Drop audio files here or <a href="#" onclick="document.getElementById('filePicker').click(); return false;">browse</a>
+  </div>
+
+  <div class="controls" id="controls" style="display: none; margin: 1rem 0;">
+    <button id="playAllBtn">Play All</button>
+    <button id="stopBtn">Stop</button>
+    <span id="nowPlaying" style="margin-left: 1rem; color: #666;"></span>
+  </div>
+
+  <div class="file-list" id="fileList"></div>
+
+  <script>
+    const dropZone = document.getElementById('dropZone');
+    const filePicker = document.getElementById('filePicker');
+    const fileList = document.getElementById('fileList');
+    const audioFiles = [];
+
+    let currentAudio = null;
+    let playAllIndex = -1;
+    let isPlayingAll = false;
+
+    function addFiles(files) {
+      for (const f of files) {
+        if (!f.type.startsWith('audio/')) continue;
+        const url = URL.createObjectURL(f);
+        audioFiles.push({ name: f.name, url });
+      }
+      renderList();
+      document.getElementById('controls').style.display = audioFiles.length ? 'block' : 'none';
+    }
+
+    function renderList() {
+      fileList.innerHTML = audioFiles.map((f, i) => `
+        <div class="file-item">
+          <button onclick="playFile(${i})">Play</button>
+          <span class="file-name">${f.name}</span>
+        </div>
+      `).join('');
+    }
+
+    function playFile(index) {
+      stopPlayback();
+      currentAudio = new Audio(audioFiles[index].url);
+      currentAudio.play();
+      updateNowPlaying(index);
+    }
+
+    function stopPlayback() {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+      }
+      isPlayingAll = false;
+      playAllIndex = -1;
+      updateNowPlaying(-1);
+    }
+
+    function updateNowPlaying(index) {
+      const el = document.getElementById('nowPlaying');
+      if (index >= 0 && index < audioFiles.length) {
+        el.textContent = `Playing: ${audioFiles[index].name}`;
+      } else {
+        el.textContent = '';
+      }
+    }
+
+    function playAll() {
+      if (audioFiles.length === 0) return;
+      isPlayingAll = true;
+      playAllIndex = 0;
+      playNext();
+    }
+
+    function playNext() {
+      if (!isPlayingAll || playAllIndex >= audioFiles.length) {
+        stopPlayback();
+        return;
+      }
+      currentAudio = new Audio(audioFiles[playAllIndex].url);
+      updateNowPlaying(playAllIndex);
+      currentAudio.onended = () => {
+        playAllIndex++;
+        playNext();
+      };
+      currentAudio.play();
+    }
+
+    document.getElementById('playAllBtn').onclick = playAll;
+    document.getElementById('stopBtn').onclick = stopPlayback;
+
+    // Drag and drop
+    dropZone.addEventListener('dragover', e => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      addFiles(e.dataTransfer.files);
+    });
+
+    // File picker
+    filePicker.addEventListener('change', e => addFiles(e.target.files));
+  </script>
+</body>
+</html>

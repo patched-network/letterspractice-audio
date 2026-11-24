@@ -1,0 +1,14 @@
+{
+  "name": "letterspractice-audio-tools",
+  "private": true,
+  "description": "Recording tools for the LettersPractice audio (see RECORDING.md). The audio itself needs none of this.",
+  "scripts": {
+    "validate": "tsx tools/validate-recording.ts",
+    "split": "tsx tools/split-words.ts",
+    "normalize": "tsx tools/normalize-local.ts"
+  },
+  "devDependencies": {
+    "ffmpeg-static": "^5.2.0",
+    "tsx": "^4.19.2"
+  }
+}
