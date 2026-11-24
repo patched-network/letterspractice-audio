@@ -33,4 +33,5 @@ Recordings © 2025–2026 Colin Kennedy, licensed under
 (full text: `LICENSE`). You may use, share and adapt them for non-commercial
 purposes, with attribution. For commercial use, ask.
 
-This license covers the audio only; the app's code has its own license.
+This license covers the audio only. The recording tools (`tools/`) are MIT
+(`tools/LICENSE`); the app's code has its own license.
